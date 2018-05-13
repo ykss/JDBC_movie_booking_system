@@ -1,0 +1,71 @@
+* {
+  margin: 0px;
+  padding:0px;
+}
+body {
+  background-image: url(moviepost.png);
+}
+
+.header {
+  width: 30%;
+  margin: 30px auto 0px;
+  color: white;
+  background: rgb(220,20,60);
+  text-align: center;
+  border: 1px solid rgb(178,34,34);
+  border-bottom: none;
+  border-radius: 10px 10px 0px 0px;
+  padding: 20px;
+}
+form {
+  width: 30%;
+  margin:auto;
+  padding: 20px;
+  border: 1px solid rgb(178,34,34);
+  background: white;
+  border-radius: 0px 0px 10px 10px;
+}
+.input {
+  margin: 15px 0px 15px 0px;
+}
+.input label {
+  display: block;
+  text-align: left;
+  margin: 5px;
+}
+.input input {
+  height: 30px;
+  width: 90%;
+  padding: 5px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+}
+.btn {
+  padding: 10px;
+  font-size: 15px;
+  color: white;
+  background: rgb(220,20,60);
+  border: none;
+  border-radius: 5px;
+}
+.error {
+  width: 92%;
+  margin: 0px auto;
+  padding: 10px;
+  border: 1px solid rgb(178,34,34);
+  color: rgb(178,34,34);
+  background: rgb(242,222,222);
+  border-radius: 5px;
+  text-align: left;
+}
+.success {
+  color: #3c763d;
+  background: #dff0d8;
+  border: 1px solid #3c763d;
+  margin-bottom: 20px;
+}
+a{
+  text-decoration: none;
+  color:rgb(220,20,60);
+}
