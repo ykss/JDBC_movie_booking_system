@@ -26,9 +26,11 @@ if (isset($_POST['login_user'])){
 
 // REGISTER USER
 function register(){
-  // receive all input values from the form
+
   global $conn, $errors, $firstname, $lastname, $username, $email;
 
+
+	  // receive all input values from the form
   $firstname = mysqli_real_escape_string($conn, $_POST['firstname']);
   $lastname = mysqli_real_escape_string($conn, $_POST['lastname']);
   $username = mysqli_real_escape_string($conn, $_POST['username']);
@@ -106,22 +108,21 @@ function login(){
     if($resultCheck<1){
         array_push($errors, "Invalid username or password");
     }else{
-      if($row=mysqli_fetch_assoc($result)){
-        $hasedPwdCheck=password_verify($password, $row['password']);   //Dehashing the PASSWORD
 
-        if($hasedPwdCheck==false){
-          array_push($errors, "Wrong password");
-        }elseif($hasedPwdCheck==true){
-          //Log in the user here
-          $_SESSION['u_id']=$row['customer_id'];
-          $_SESSION['u_first']=$row['firstname'];
-          $_SESSION['u_last']=$row['lastname'];
-          $_SESSION['u_email']=$row['email'];
-          $_SESSION['u_username']=$row['username'];
-          header("Location: ../index.php?login=success");
+      // if($row=mysqli_fetch_assoc($result)){
+      //   $hasedPwdCheck=password_verify($password, $row['password']);   
+      //   if($hasedPwdCheck==false){
+      //     array_push($errors, "Wrong password");
+      //   }elseif($hasedPwdCheck==true){
+      //   Log in the user here
+	    
+          $_SESSION['customer_id']=$row['customer_id'];
+          $_SESSION['username']=$row['username'];
+
+          header("Location:index.php?login=success");
           exit();
-        }
-      }
+      //   }
+      // }
     }
   }
 }
