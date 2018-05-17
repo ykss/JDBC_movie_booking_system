@@ -1,19 +1,8 @@
 <?php
+include 'dbh.inc.php';
+
 session_start();
 
-$dbServername ="localhost";
-$dbUsername ="root";
-$dbPassword ="zjaehwls";
-$dbName ="ressystem";
-
-// connect to the database
-$conn=mysqli_connect($dbServername,$dbUsername,$dbPassword,$dbName);
-
-
-$firstname= "";
-$lastname = "";
-$username = "";
-$email    = "";
 $errors = array();
 
 if (isset($_POST['register'])) {
@@ -27,7 +16,7 @@ if (isset($_POST['login_user'])){
 // REGISTER USER
 function register(){
 
-  global $conn, $errors, $firstname, $lastname, $username, $email;
+  global $conn, $errors;
 
 
 	  // receive all input values from the form
@@ -74,15 +63,11 @@ function register(){
   			  VALUES('$firstname', '$lastname', '$username', '$password', '$email')";
     mysqli_query($conn, $query);
 
-    $logged_in_user_id = mysqli_insert_id($conn);
-
-    $_SESSION['username'] = getUserById($logged_in_user_id); // put logged in user in session
-  	$_SESSION['success'] = "You are now logged in";
-  	header('location: index.php');
+		header("Location: register.php?registerSuccess");
   }
 }
 
-function getUserById($id){
+function getIDofUser($id){
 	global $conn;
 	$query = "SELECT * FROM customerlist WHERE id=" . $id;
 	$result = mysqli_query($conn, $query);
@@ -116,7 +101,7 @@ function login(){
 				$_SESSION['customer_id']=$row['customer_id'];
 				$_SESSION['username']=$row['username'];
 
-				header("Location:index.php?login=success");
+				header("Location:comment.php?login=success");
 				exit();
 			}
     }

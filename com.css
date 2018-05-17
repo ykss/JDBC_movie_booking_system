@@ -1,0 +1,42 @@
+* {
+  margin: 0px;
+  padding:0px;
+}
+body {
+  background-image: url(moviepost.png);
+}
+
+.text{
+  margin-top:30%;
+  width:70%;
+  height:100px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+form .submitbox{
+  margin-left: 45%;
+  width:10%;
+  height:30px;
+  border-radius: 15px;
+}
+
+.comm_box{
+  width:70%;
+  border:1px solid #bbb;
+  margin-left:auto;
+  margin-right: auto;
+  background-color: rgba(255,255,255,0.8);
+}
+.commentBox {
+  padding:10px;
+  border-top:1px dotted #bbb;
+}
+.delete_btn, .edit_btn{
+  width: 50px;
+  height:30px;
+  border-radius: 5px;
+}
+.delete, .edit{
+  float:right;
+}
