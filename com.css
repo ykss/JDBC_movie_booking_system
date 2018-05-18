@@ -7,7 +7,7 @@ body {
 }
 
 .text{
-  margin-top:30%;
+  margin-top:5%;
   width:70%;
   height:100px;
   margin-left: auto;
@@ -27,16 +27,29 @@ form .submitbox{
   margin-left:auto;
   margin-right: auto;
   background-color: rgba(255,255,255,0.8);
+  margin-top:20px;
 }
 .commentBox {
   padding:10px;
   border-top:1px dotted #bbb;
 }
-.delete_btn, .edit_btn{
+
+.btn{
   width: 50px;
   height:30px;
   border-radius: 5px;
 }
 .delete, .edit{
   float:right;
+}
+#starpoint{
+  float:right;
+  font-size: 20px;
+}
+.pic{
+  width:350px;
+  margin:50px;
+}
+.order{
+  margin-left: 15%;
 }

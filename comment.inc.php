@@ -19,21 +19,21 @@ function getComments($conn){
   $result=mysqli_query($conn,$sql);
   while($row=mysqli_fetch_assoc($result)){
       echo "<div class='comm_box'>";
-      echo "<div class=titleBox'><label>".$row['username']."</label></div>";
+      echo "<div class='titleBox' id='starpoint'><label>Rating: ".$row['starpoint']."</label></div>";
+      echo "<div class='titleBox'><label>".$row['username']."</label></div>";
+      echo "<div class='titleBox'><label>".$row['date']."</label></div>";
       echo "<form class='delete' methond='POST' action='".deleteComments($conn)."'>
         <input type='hidden' name='customer_id' value='".$row['customer_id']."'>
-        <button type='submit' class='delete_btn' name='Delete'>Delete</button>
+        <button type='submit' class='btn' name='Delete'>Delete</button>
         </form>
         <form class='edit' methond='POST' action='editcomment.php'>
           <input type='hidden' name='customer_id' value='".$row['customer_id']."'>
           <input type='hidden' name='comment_id' value='".$row['comment_id']."'>
           <input type='hidden' name='message' value='".$row['message']."'>
-          <button class='edit_btn'>Edit</button>
+          <button class='btn'>Edit</button>
         </form>";
       echo "<div class='commentBox'><p class='taskDescription'>".$row['message']."</p></div>";
       echo "</div>";
-
-
 
   }
 }
@@ -54,11 +54,14 @@ function editComments($conn){
 
 function deleteComments($conn){
   if(isset($_POST['Delete'])){
-    $customer_id=$_POST['customer_id'];
-    header("Location: comment.php?Hi");
+    $cid=$_POST['customer_id'];
 
-    if($_SESSION['customer_id']===$customer_id){
-      $sql="DELETE * FROM commentlist WHERE comment_id='$comment_id'";
+    $sql="SELECT * FROM commentlist";
+    $result=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_assoc($result);
+
+    if($_SESSION['customer_id']==$cid){
+      $sql="DELETE * FROM commentlist WHERE comment_id='$cid'";
       $result=mysqli_query($conn,$sql);
       header("Location: comment.php?successDelete");
     }else{
@@ -67,11 +70,10 @@ function deleteComments($conn){
   }
 }
 
-function userLogout(){
-  if(isset($_POST['logoutSubmit'])){
-    session_start();
-    session_destroy();
-    header("Location: comment.php");
-    exit();
-  }
+function orderBy($conn){
+
+}
+
+function movieDisplay($conn){
+
 }

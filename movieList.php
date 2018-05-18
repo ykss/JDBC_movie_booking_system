@@ -1,5 +1,5 @@
 <?php
-include_once "connectDB.php"
+include_once "dbh.inc.php"
 ?>
 
 <html>
@@ -13,7 +13,7 @@ include_once "connectDB.php"
   }
   th, td{
     border: 1px solid #444444;
-    text-align: center; 
+    text-align: center;
   }
 </style>
 
@@ -33,8 +33,8 @@ include_once "connectDB.php"
           <th>포스터</th>
       </tr>
   </thead>
- 
-  <?php  $rlt = $dbConnect->query("SELECT * FROM MovieInfoList");
+
+  <?php  $rlt = $conn->query("SELECT * FROM MovieInfoList");
   while($List = mysqli_fetch_array($rlt)){
     ?>
 <tbody>
@@ -46,7 +46,7 @@ include_once "connectDB.php"
       <td><?php echo $List['director']?></td>
       <td><?php echo $List['actor']?></td>
       <td><?php echo $List['is_rated']?></td>
-      <td><?php 
+      <td><?php
             $content = $List['content'];
             //echo strlen($content);
             if(strlen($content) > 80){
