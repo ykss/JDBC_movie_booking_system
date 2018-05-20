@@ -14,6 +14,9 @@ include "server.php"
       echo "Nobody is logged in";
     }?>
     <style>
+      body {
+        background-color: lightgray;
+      }
       #pic{
         column-width:200px;
         display: inline-block;
@@ -126,7 +129,7 @@ include "server.php"
           $selected = isset($_POST['std'])? $_POST['std']:'';
         ?>
         <select class="std" name="std">
-          <option <?php if($selected == 'is_rated'){echo("selected");}?> value = "is_rated">평점순</option>
+          <option <?php if($selected == 'starpoint'){echo("selected");}?> value = "starpoint">평점순</option>
           <option <?php if($selected == 'release_date'){echo("selected");}?> value = "release_date">개봉일순</option>
           <option <?php if($selected == 'title'){echo("selected");}?> value = "title">제목순</option>
         </select>
@@ -134,7 +137,7 @@ include "server.php"
         $order = '';
         $selectedOption = isset($_POST['std']) ? $_POST['std'] : '';
         switch ($selectedOption) {
-          case 'is_rated':
+          case 'starpoint':
               $order = isset($selectedOption) ? "DESC": '';
               break;
           case 'release_date':
@@ -154,7 +157,7 @@ include "server.php"
     <br>
 
     <?php
-    if($result = mysqli_query($conn,"SELECT * FROM MovieInfoList ORDER BY $selectedOption $order LIMIT 6")){
+    if($result = $selectedOption!='starpoint' ? mysqli_query($conn,"SELECT * FROM MovieInfoList ORDER BY $selectedOption $order LIMIT 6"):mysqli_query($conn,"SELECT * FROM MovieInfoList NATURAL JOIN (SELECT * FROM commentlist)cm WHERE cm.movie_id=movie_id ORDER BY starpoint DESC LIMIT 6")){
       $i = 1;
       while($List = mysqli_fetch_array($result)){
         ?>
@@ -168,6 +171,11 @@ include "server.php"
             <figcaption><?php echo '개봉일자 : '.$List['release_date']?></figcaption>
             <figcaption><?php echo '제한연령 : '.$List['is_rated'].'세 이상'?></figcaption>
             <figcaption><?php echo '제작사 : '.$List['studio']?></figcaption>
+            <?php $movie_id=$List['movie_id'];
+            $sqll="SELECT AVG(starpoint) AS avg FROM commentlist WHERE movie_id='$movie_id'";
+            $resultt=mysqli_query($conn,$sqll);
+            $value = mysqli_fetch_assoc($resultt); ?>
+            <figcaption><?php echo '평점 : '.$value['avg']?></figcaption>
             <?php  echo "<form method='POST' action='comment.php'>
               <input type='hidden' name='movie_id' value='".$List['movie_id']."'>
               <button class='button' name='lookinfo'>
