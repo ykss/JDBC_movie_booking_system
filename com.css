@@ -2,8 +2,21 @@
   margin: 0px;
   padding:0px;
 }
+
 body {
   background-image: url(moviepost.png);
+}
+
+table {
+  width: 100%;
+  border: 1px solid #444444;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+th, td{
+  border: 1px solid #444444;
+  text-align: center;
 }
 
 .text{
@@ -14,6 +27,7 @@ body {
   margin-right: auto;
   display: block;
 }
+
 form .submitbox{
   margin-left: 45%;
   width:10%;
@@ -29,6 +43,7 @@ form .submitbox{
   background-color: rgba(255,255,255,0.8);
   margin-top:20px;
 }
+
 .commentBox {
   padding:10px;
   border-top:1px dotted #bbb;
@@ -39,17 +54,21 @@ form .submitbox{
   height:30px;
   border-radius: 5px;
 }
+
 .delete, .edit{
   float:right;
 }
+
 #starpoint{
   float:right;
   font-size: 20px;
 }
+
 .pic{
   width:350px;
   margin:50px;
 }
+
 .order{
   margin-left: 15%;
 }

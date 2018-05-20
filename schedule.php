@@ -1,16 +1,16 @@
 <?php
 include_once "dbh.inc.php";
 ?>
-
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <title>Reservation</title>
   <link rel="stylesheet" type="text/css" href="com.css">
 <body>
+현재상영중인 영화정보 가져오기<br><br>
 
-<form method="post" action="reserve.php">
-
+<form method="post" action="reserveSeat.php">
 <select name='schedule'>
   <option value='' selected>-- 영화선택 --</option>
   <?php
@@ -19,16 +19,19 @@ include_once "dbh.inc.php";
 FROM MovieInfoList JOIN MovieScheduleList USING (movie_id)"
 );
 while($schedule = mysqli_fetch_array($rlt)){
+  $title = $schedule['title'];
+  $date = $schedule['date'];
+  $screen_room_id = $schedule['screen_room_id'];
   $option = $schedule['title'].'/ '.$schedule['date'].'/ '.$schedule['screen_room_id']."관";
 ?>
-  <option value= '<?php echo $option; ?>'> <?php echo $option;?></option>
-  <?php }?>
-</select>
+  <option value= '<?php echo $title.' '.$date.' '.$screen_room_id; ?>'> <?php echo $option;?></option>
+ <?php }?>
+  </select>
+
 <br>
 
-<p> 예매명수: <input type="text" name="numOfPeople" placeholder=" 예: 4"></p>
-<p> 좌석선택: <input type="text" name="seatInfo" placeholder=" 예: A0,A2"></p>
-<button type="submit" class="btn" name="reserve">예매하기</button>
+<p> 예매명수: <input type="text" name="numOfPeople" placeholder=" 예: 2"></p>
+<button type="submit" class="btn" name="reserve">좌석 선택하기</button>
 </form>
 </body>
 </html>

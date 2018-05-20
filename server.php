@@ -87,7 +87,7 @@ function login(){
   if(empty($username) || empty($password)){
     array_push($errors, "Fill username and password");
   }else{
-    $sql = "SELECT * FROM customerlist WHERE username='$username'";
+    $sql = "SELECT * FROM czustomerlist WHERE username='$username'";
     $result=mysqli_query($conn, $sql);
     $resultCheck=mysqli_num_rows($result);
     if($resultCheck<1){
