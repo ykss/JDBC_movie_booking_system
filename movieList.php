@@ -5,6 +5,7 @@ include_once "dbh.inc.php"
 <html>
 
 <style>
+
   table {
     width: 100%;
     border: 1px solid #444444;

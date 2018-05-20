@@ -8,7 +8,15 @@ include "comment.inc.php";
   <meta charset="utf-8">
   <title>영화목록</title>
   <style>
-
+  body{
+    background-color: lightgrey;
+  }
+    header{
+      font-size:80px;
+      color:rgba(180,20,20,0.8);
+      text-align: center;
+      margin-bottom: 30px;
+    }
     #pic{
       column-width:200px;
       display: inline-block;
@@ -37,6 +45,11 @@ include "comment.inc.php";
       width:100%;
       height:30px;
     }
+    .button1{
+      width:30%;
+      height:40px;
+      font-size:20px;
+    }
 
   </style>
 </head>
@@ -47,8 +60,16 @@ include "comment.inc.php";
     <span style='color:rgba(255,30,30,0.9)'>".$_SESSION['username']."</span></p>";
   }else{
     echo "Nobody is logged in";
-  }
+  }?>
+  <header>
+    JDBC
+  </header>
+  <!-- <form action="login.html" method="post">
+    <button class="button1" type="submit" name="Reservation">Reservation</button>
+    <button class="button1" type="submit" name="myAccount">myAccount</button>
+  </form> -->
 
+  <?php
   $rlt = mysqli_query($conn,"SELECT * FROM MovieInfoList");
   while($List = mysqli_fetch_array($rlt)){
     ?>
