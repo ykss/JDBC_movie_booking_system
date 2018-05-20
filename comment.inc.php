@@ -12,7 +12,7 @@ function setComments($conn){
     $sql="INSERT INTO commentlist (starpoint, movie_id, customer_id, date, message) VALUES ('$starpoint','$movie_id','$cid','$date','$message')";
     $result=mysqli_query($conn,$sql);
 
-    header("Location: comment.php?commentMadeSuccessfully");
+    exit();
   }
 }
 
@@ -38,11 +38,15 @@ function getComments($conn){
         </form>";
       echo "<div class='commentBox'><p class='taskDescription'>".$row['message']."</p></div>";
       echo "<form class='like' method='POST' action='".like($conn)."'>
-        <input type='hidden' name='customer_id' value='".$row['customer_id']."'>
         <input type='hidden' name='comment_id' value='".$row['comment_id']."'>
         <button type='submit' class='btn' name='liked'>Like</button>
+        <button type='submit' class='btn' name='disliked'>Dislike</button>
         </form>";
-      echo $row['likes'];
+      $comm=$row['comment_id'];
+      $sqltwo="SELECT COUNT(comment_id) AS count FROM likelist WHERE comment_id='$comm'";
+      $resulttwo=mysqli_query($conn,$sqltwo);
+      $rowtwo=mysqli_fetch_assoc($resulttwo);
+      echo $rowtwo['count'];
       echo "</div>";
 
 
@@ -51,17 +55,14 @@ function getComments($conn){
 
 function editComments($conn){
   if(isset($_POST['editcomment'])){
-    $customer_id=$_POST['customer_id'];
     $comment_id=$_POST['comment_id'];
     $date=$_POST['date'];
     $message=$_POST['message'];
 
     $sql="UPDATE commentlist SET message='$message', date='$date' WHERE comment_id='$comment_id'";
     $result=mysqli_query($conn,$sql);
-    printf("%d", mysqli_affected_rows());
-    header("Location: comment.php?Success");
+    header("Location: movlist.php?Success");
   }
-
 }
 
 function deleteComments($conn){
@@ -70,10 +71,8 @@ function deleteComments($conn){
     $cid=$_POST['customer_id'];
 
     if($cid==$_SESSION['customer_id']){
-      $sqltwo="DELETE * FROM commentlist WHERE comment_id='$comment_id'";
-      mysqli_query($conn,$sqltwo);
-
-      header("Location: comment.php?");
+      $sqltwo="DELETE FROM commentlist WHERE comment_id='$comment_id'";
+      $result=mysqli_query($conn,$sqltwo);
     }else{
       header("Location: movlist.php?wrongUserDenyDelete");
     }
@@ -105,28 +104,18 @@ function movieDisplay($conn){
 }
 function like($conn){
   if(isset($_POST['liked'])){
-  $customer_id=$_POST['customer_id'];
   $comment_id=$_POST['comment_id'];
-  $sql="SELECT * FROM commentlist WHERE comment_id='$comment_id'";
-  $result=mysqli_query($conn,$sql);
-  $row=mysqli_fetch_assoc($result);
-  $N=$row['likes'];
+  $current_login=$_SESSION['customer_id'];
+  mysqli_query($conn,"INSERT INTO likelist(comment_id, customer_id) VALUES('$comment_id','$current_login')");
+  header("Location: comment.php?LikeClicked");
+  }
+  if(isset($_POST['disliked'])){
+  $comment_id=$_POST['comment_id'];
+  $current_login=$_SESSION['customer_id'];
 
-  mysqli_query($conn,"UPDATE commentlist SET likes='$N'+1 WHERE comment_id='$comment_id'");
-  mysqli_query($conn,"INSERT INTO likes(customer_id,comment_id) VALUES('$customer_id','$comment_id')");
+  header("Location: comment.php?DislikeClicked");
+
+  mysqli_query($conn,"DELETE FROM likelist WHERE comment_id='$comment_id' AND customer_id='$current_login'");
   exit();
   }
-  //
-  // if(isset($_POST['unliked'])){
-  // $customer_id=$_SESSION['customer_id'];
-  // $comment_id=$_POST['comment_id'];
-  // $sql="SELECT * FROM commentlist WHERE comment_id='$comment_id'";
-  // $result=mysqli_query($conn,$result);
-  // $row=mysqli_fetch_assoc($result);
-  // $N=$row['likes'];
-  //
-  // mysqli_query($conn,"DELETE FROM likes WHERE comment_id='$comment_id' AND customer_id='$customer_id'");
-  // mysqli_query($conn,"UPDATE commentlist SET likes='$n'-1 WHERE comment_id='$comment_id'");
-  // exit();
-  // }
 }
