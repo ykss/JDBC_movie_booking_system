@@ -51,5 +51,25 @@ include "comment.inc.php";
       개인정보수정</button></center>
     </form>";
     ?>
+    <center><h3>Reservation List</h3></center>
+    <?php
+      $rlt = mysqli_query($conn,"SELECT reserve_date, title, date FROM ReservationList JOIN MovieScheduleList
+                              ON ReservationList.customer_id=$currentId AND ReservationList.schedule_id = MovieScheduleList.schedule_id
+                              JOIN MovieInfoList ON MovieScheduleList.movie_id = MovieInfoList.movie_id");
+      $List = mysqli_fetch_array($rlt); ?>
+      <div id='info'>
+        <?php
+      echo "예약일시: ";
+      echo $List['reserve_date'];
+      echo "<br>";
+      echo "영화제목: ";
+      echo $List['title'];
+      echo "<br>";
+      echo "상영일시: ";
+      echo $List['date'];
+      echo "<br>";
+     ?>
+
+    </div>
 </body>
 </html>
