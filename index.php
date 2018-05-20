@@ -14,16 +14,11 @@ include "server.php"
       echo "Nobody is logged in";
     }?>
     <style>
-      .rank{
-        text-align:center;
-        margin-top:10px;
-      }
       #pic{
         column-width:200px;
         display: inline-block;
         width:300px;
-        margin-left: 3%;
-
+        margin-left: 5%;
       }
       #pic figure{
         display:inline-block;
@@ -31,7 +26,6 @@ include "server.php"
         margin:5px;
         column-gap:15px;
         margin-bottom:20px;
-
       }
       #pic figure img{
         width:300px;
@@ -42,68 +36,89 @@ include "server.php"
         border-top:1px solid rgba(0,0,0,0.2);
         text-align:center;
       }
+      .rank{
+        text-align:center;
+        margin-top:10px;
+      }
       .button{
         width:100%;
         height:30px;
+        margin-right:2%;
       }
       .viewall{
         text-align: right;
       }
     </style>
   </head>
+
   <body>
-    <div class="row">
-    <div class="col-lg-12 text-center v-center">
-      <p class="lead" style="text-align:center;">영화 검색</p>
-      <form class="col-lg-12" action="index.php" method="post">
-        <div class="input-group" style="width:340px;text-align:center;margin:0 auto;">
-          <?php $selectedSearch = isset($_POST['find'])?$_POST['find']:''; ?>
-        <select class="find" name="find">
-          <option <?php if($selectedSearch == 'all'){echo("selected");}?> value="all">전체</option>
-          <option <?php if($selectedSearch == 'title'){echo("selected");}?> value="title">제목으로 찾기</option>
-          <option <?php if($selectedSearch == 'director'){echo("selected");}?> value="director">감독으로 찾기</option>
-          <option <?php if($selectedSearch == 'actor'){echo("selected");}?> value="actor">배우로 찾기</option>
-        </select>
+    <form class="rankstd" action="index.php" method="post" >
+      <div class="rank">
+        <p class="rate">영화 검색</p>
+        <?php $selectedSearch = isset($_POST['find'])?$_POST['find']:''; ?>
+      <select class="std" name="find">
+        <option <?php if($selectedSearch == 'all'){echo("selected");}?> value="all">전체</option>
+        <option <?php if($selectedSearch == 'title'){echo("selected");}?> value="title">제목으로 찾기</option>
+        <option <?php if($selectedSearch == 'director'){echo("selected");}?> value="director">감독으로 찾기</option>
+        <option <?php if($selectedSearch == 'actor'){echo("selected");}?> value="actor">배우로 찾기</option>
+      </select>
+      <input type="text" name="search" placeholder="키워드를 입력하세요." />
+      <input type="submit" name="submit" value="검색" />
         <?php
         if(isset($_POST['search'])){
           $searchq = $_POST['search'];
-          $searchq = preg_replace("#[^0-9a-z]#i","",$searchq);
         } ?>
+        <br><br>
         <?php
-        $sql='';
+        $sql = "SELECT * FROM MovieInfoList WHERE title LIKE '%요건%'";
         switch ($selectedSearch) {
           case 'title':
-              $sql = isset($selectedSearch) ? "title LIKE '%$searchq%'" : '';
+              $sql = isset($selectedSearch) ? "SELECT * FROM MovieInfoList WHERE title LIKE '%".$searchq."%'" : '';
               break;
           case 'director':
-              $sql = isset($selectedSearch) ? "director LIKE '%$searchq%'" : '';
+              $sql = isset($selectedSearch) ? "SELECT * FROM MovieInfoList WHERE director LIKE '%".$searchq."%'" : '';
               break;
           case 'actor':
-              $sql= isset($selectedSearch) ? "actor LIKE '%$searchq%'" : '';
+              $sql= isset($selectedSearch) ? "SELECT * FROM MovieInfoList WHERE actor LIKE '%".$searchq."%'" : '';
               break;
           case 'all':
-              $sql= isset($selectedSearch) ? "title LIKE '%$searchq%' OR actor LIKE '%$searchq%' OR director LIKE '%$searchq%'" : '';
+              $sql= isset($selectedSearch) ? "SELECT * FROM MovieInfoList WHERE title LIKE '%$searchq%' OR actor LIKE '%$searchq%' OR director LIKE '%$searchq%'" : '';
               break;
         }
-        if($result = mysqli_query($conn,"SELECT * FROM MovieInfoList WHERE $sql ")){
-          $count = mysqli_num_rows($result);
-          if($count == 0){
-            $output="검색결과가 존재하지 않습니다.";
-          }else{
+          ?>
+          </div>
+        </form>
+        <?php
+          if($result = mysqli_query($conn,$sql)){
             while($row = mysqli_fetch_array($result)){
-              $movietitle = $row['title'];
-              
-            }
-          }
-        }
-        ?>
-        <input type="text" name="search" placeholder="키워드를 입력하세요." />
-        <input type="submit" name="submit" value="검색" />
-        </div>
+              ?>
+              <div id="pic">
+                <figure>
+                  <img src="<?php echo $row['poster_img'];?>"/>
+                  <figcaption><?php echo '제목 : '.$row['title']?></figcaption>
+                  <figcaption><?php echo '장르 : '.$row['genre']?></figcaption>
+                  <figcaption><?php echo '런닝타임 : '.$row['running_time'].'분'?></figcaption>
+                  <figcaption><?php echo '개봉일자 : '.$row['release_date']?></figcaption>
+                  <figcaption><?php echo '제한연령 : '.$row['is_rated'].'세 이상'?></figcaption>
+                  <figcaption><?php echo '제작사 : '.$row['studio']?></figcaption>
+                  <?php  echo "<form method='POST' action='comment.php'>
+                    <input type='hidden' name='movie_id' value='".$row['movie_id']."'>
+                    <button class='button' name='lookinfo'>
+                    영화정보보기</button>
+                  </form>";
+                  ?>
+                  <?php  echo "<form method='POST' action='reserve.php'>
+                    <input type='hidden' name='movie_id' value='".$row['movie_id']."'>
+                    <button class='button' name='makereserve'>
+                    예매하기</button>
+                  </form>";
+                  ?>
+                </figure>
+              </div>
+            <br>
+      <?php } ?>
+    <?php  } ?>
 
-      </form>
-      </div>
-    </div> <!-- /row -->
     <form class="rankstd" action="index.php" method="post">
       <div class="rank">
         <p class="rate" style="text-align:center;">영화 순위</p>
@@ -151,7 +166,7 @@ include "server.php"
             <figcaption><?php echo '장르 : '.$List['genre']?></figcaption>
             <figcaption><?php echo '런닝타임 : '.$List['running_time'].'분'?></figcaption>
             <figcaption><?php echo '개봉일자 : '.$List['release_date']?></figcaption>
-            <figcaption><?php echo '누적평점 : '.$List['is_rated']?></figcaption>
+            <figcaption><?php echo '제한연령 : '.$List['is_rated'].'세 이상'?></figcaption>
             <figcaption><?php echo '제작사 : '.$List['studio']?></figcaption>
             <?php  echo "<form method='POST' action='comment.php'>
               <input type='hidden' name='movie_id' value='".$List['movie_id']."'>
