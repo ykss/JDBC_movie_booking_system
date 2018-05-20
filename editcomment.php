@@ -14,17 +14,16 @@
 <body>
 
   <?php
-  $comment_id=$_POST['customer_id'];
-  $uid=$_POST['comment_id'];
-  $date=$_POST['date'];
+  $comment_id=$_POST['comment_id'];
+  $customer_id=$_POST['customer_id'];
   $message=$_POST['message'];
 
   echo "<form method='POST' action='".editComments($conn)."'>
-  <input type='hidden' name='customer_id' value='".$comment_id."'>
-  <input type='hidden' name='comment_id' value='".$uid."'>
-  <input type='hidden' name='date' value='".$date."'>
-  <textarea name='message' row='8' column='80'>".$message."</textarea><br/>
-  <button type='submit' name='submit'>Comment</button>
+  <input type='hidden' name='customer_id' value='".$customer_id."'>
+  <input type='hidden' name='comment_id' value='".$comment_id."'>
+  <input type='hidden' name='date' value=value='".date('Y-m-d H:i:s')."'>
+  <textarea name='message' style='width:300px; height:200px;'>".$message."</textarea><br/>
+  <button type='submit' name='editcomment'>Comment</button>
   </form>"
   ?>
 
