@@ -135,7 +135,7 @@ include "server.php"
         </select>
         <?php
         $order = '';
-        $selectedOption = isset($_POST['std']) ? $_POST['std'] : '';
+        $selectedOption = isset($_POST['std']) ? $_POST['std'] : 'starpoint';
         switch ($selectedOption) {
           case 'starpoint':
               $order = isset($selectedOption) ? "DESC": '';
@@ -157,7 +157,7 @@ include "server.php"
     <br>
 
     <?php
-    if($result = $selectedOption!='starpoint' ? mysqli_query($conn,"SELECT * FROM MovieInfoList ORDER BY $selectedOption $order LIMIT 6"):mysqli_query($conn,"SELECT * FROM MovieInfoList NATURAL JOIN (SELECT * FROM commentlist)cm WHERE cm.movie_id=movie_id ORDER BY starpoint DESC LIMIT 6")){
+    if($result = $selectedOption!='starpoint' ? mysqli_query($conn,"SELECT * FROM MovieInfoList ORDER BY $selectedOption $order LIMIT 6"):mysqli_query($conn,"SELECT * FROM MovieInfoList NATURAL JOIN (SELECT movie_id,AVG(starpoint) AS avg FROM commentlist GROUP BY movie_id)cm WHERE cm.movie_id=movie_id ORDER BY avg DESC LIMIT 6")){
       $i = 1;
       while($List = mysqli_fetch_array($result)){
         ?>
@@ -182,7 +182,7 @@ include "server.php"
               영화정보보기</button>
             </form>";
             ?>
-            <?php  echo "<form method='POST' action='reserve.php'>
+            <?php  echo "<form method='POST' action='schedule.php'>
               <input type='hidden' name='movie_id' value='".$List['movie_id']."'>
               <button class='button' name='makereserve'>
               예매하기</button>
