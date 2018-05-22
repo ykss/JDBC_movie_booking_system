@@ -57,9 +57,9 @@ include_once "dbh.inc.php"
      <td width="10%"><img src="<?php echo $List['poster_img'];?>" width ="130" height="160"></td>
      </tr>
 </tbody>
-
 <?php } ?>
 </table>
+
 <!--
 <button onclick=""> 전체 영화목록 조회</button>
 <button onclick=""> 개봉예정작 조회</button>
