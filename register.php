@@ -7,12 +7,20 @@ include('server.php') ?>
   <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-  <div class="header">
+  <div class="headtag">
   	<h2>Register</h2>
   </div>
 
   <form method="post" action="register.php">
-  	<?php include('errors.php'); ?>
+
+    <?php  if (count($errorsfound) > 0){ ?>
+      <div class="errors">
+      	<?php foreach ($errorsfound as $i) : ?>
+      	  <p><?php echo $i ?></p>
+      	<?php endforeach ?>
+      </div>
+    <?php } ?>
+
   	<div class="input">
   	  <label>Firstname</label>
   	  <input type="text" name="firstname">

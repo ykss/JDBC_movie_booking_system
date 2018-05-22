@@ -8,9 +8,6 @@ include "comment.inc.php";
   <meta charset="utf-8">
   <title>영화목록</title>
   <style>
-  body{
-    background-color: lightgrey;
-  }
     header{
       font-size:80px;
       color:rgba(180,20,20,0.8);
@@ -26,7 +23,6 @@ include "comment.inc.php";
       display: inline-block;
       width:300px;
       margin-left: 3%;
-
     }
     #pic figure{
       display:inline-block;
@@ -34,7 +30,6 @@ include "comment.inc.php";
       margin:5px;
       column-gap:15px;
       margin-bottom:20px;
-
     }
     #pic figure img{
       width:300px;
@@ -54,7 +49,6 @@ include "comment.inc.php";
       height:40px;
       font-size:20px;
     }
-
   </style>
 </head>
 <body>
@@ -64,14 +58,6 @@ include "comment.inc.php";
   }else{
     echo "Nobody is logged in";
   }?>
-  <header>
-    JDBC
-  </header>
-  <!-- <form action="login.html" method="post">
-    <button class="button1" type="submit" name="Reservation">Reservation</button>
-    <button class="button1" type="submit" name="myAccount">myAccount</button>
-  </form> -->
-
   <h1 style="text-align:center;">ALL Movies in JDBC Theater</h1>
 
 
@@ -115,7 +101,6 @@ include "comment.inc.php";
         }else{
           while($row = mysqli_fetch_array($result)){
             $movietitle = $row['title'];
-
           }
         }
       }

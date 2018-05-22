@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 function setComments($conn){
   if(isset($_POST['submitcomment'])){
     $cid=$_POST['customer_id'];
@@ -24,11 +25,12 @@ function getComments($conn){
 
   $movie_id=$_SESSION['movie_id'];
   $sql="";
-  if(!isset($_POST['orderRecent'])){
-    $sql="SELECT * FROM customerlist NATURAL JOIN (SELECT * FROM commentlist)cm WHERE cm.movie_id='$movie_id'";
-  }elseif(isset($_POST['orderLike'])){
-    }else{
+  if(isset($_POST['orderRecent'])){
     $sql="SELECT * FROM customerlist NATURAL JOIN (SELECT * FROM commentlist)cm WHERE cm.movie_id='$movie_id' ORDER BY date DESC";
+  }elseif(isset($_POST['orderLike'])){
+    $sql="SELECT * FROM customerlist NATURAL JOIN(SELECT * FROM commentlist NATURAL JOIN (SELECT * FROM countlikenum)likenum WHERE likenum.comment_id=commentlist.comment_id)cm WHERE cm.movie_id='$movie_id'ORDER BY counter DESC;";
+  }else{
+    $sql="SELECT * FROM customerlist NATURAL JOIN (SELECT * FROM commentlist)cm WHERE cm.movie_id='$movie_id'";
   }
 
   $result=mysqli_query($conn,$sql);
@@ -63,7 +65,6 @@ function getComments($conn){
       echo $rowtwo['count'];
       echo "</div>";
 
-
   }
 }
 
@@ -92,18 +93,6 @@ function deleteComments($conn){
       header("Location: movlist.php?wrongUserDenyDelete");
     }
   }
-}
-
-function orderBy(){
-  $movie_id=$_SESSION['movie_id'];
-  $sql="";
-  if(!isset($_POST['orderRecent'])){
-    $sql="SELECT * FROM customerlist NATURAL JOIN (SELECT * FROM commentlist)cm WHERE cm.movie_id='$movie_id'";
-  }else{
-    $sql="SELECT * FROM customerlist NATURAL JOIN (SELECT * FROM commentlist)cm WHERE cm.movie_id='$movie_id' ORDER BY date DESC";
-  }
-
-  return $sql;
 }
 
 function movieDisplay($conn){
@@ -135,7 +124,7 @@ function movieDisplay($conn){
       <td>".$List['release_date']."</td>
     </tr>
     <tr>
-      <th>연령제한 : </th>
+      <th>제한연령 : </th>
       <td>".$List['is_rated']."</td>
     </tr>
     <tr>

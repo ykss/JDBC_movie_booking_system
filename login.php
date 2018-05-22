@@ -8,12 +8,20 @@ include('server.php')
   <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-  <div class="header">
+  <div class="headtag">
   	<h2>Login</h2>
   </div>
 
   <form method="post" action="login.php">
-  	<?php include('errors.php'); ?>
+
+    <?php  if (count($errorsfound) > 0){ ?>
+      <div class="errors">
+      	<?php foreach ($errorsfound as $i) : ?>
+      	  <p><?php echo $i ?></p>
+      	<?php endforeach ?>
+      </div>
+    <?php } ?>
+
   	<div class="input">
   		<label>Username</label>
   		<input type="text" name="username" >

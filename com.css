@@ -2,21 +2,8 @@
   margin: 0px;
   padding:0px;
 }
-
 body {
   background-color:lightgrey;
-}
-
-table {
-  width: 100%;
-  border: 1px solid #444444;
-  border-collapse: collapse;
-  text-align: center;
-}
-
-th, td{
-  border: 1px solid #444444;
-  text-align: center;
 }
 
 .text{
@@ -27,7 +14,6 @@ th, td{
   margin-right: auto;
   display: block;
 }
-
 form .submitbox{
   margin-left: 45%;
   width:10%;
@@ -44,7 +30,6 @@ form .submitbox{
   margin-top:20px;
   margin-bottom: 20px;
 }
-
 .commentBox {
   padding:10px;
   border-top:1px dotted #bbb;
@@ -55,24 +40,13 @@ form .submitbox{
   height:30px;
   border-radius: 5px;
 }
-
 .delete, .edit{
   float:right;
 }
-<<<<<<< HEAD
-
-#starpoint{
-  float:right;
-  font-size: 20px;
-}
-
-=======
->>>>>>> 31189b276c263cfeb1f79357bfffc8746eed25d8
 .pic{
   width:350px;
   margin:50px;
 }
-
 .order{
   margin-left: 15%;
 }
