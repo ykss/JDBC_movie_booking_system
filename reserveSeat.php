@@ -56,7 +56,19 @@ $title = $schedule['title'];
 $date = $schedule['date'];
 $screen_room_id = $schedule['screen_room_id'];
 $option = $schedule['title'].'/ '.$schedule['date'].'/ '.$schedule['screen_room_id']."관";
-*/
+
+$rlt = mysqli_query($conn, "SELECT reserve_id FROM ReservationList WHERE reserve_id='$id'");
+$number = 0;
+while($res = mysqli_fetch_array($rlt)){
+  $number++;
+}
+if($number >= 10){
+  $query = "UPDATE CustomerList SET customer_type='VIP' WHERE customer_id='$id'";
+}
+else if($number >= 5){
+  $query = "UPDATE CustomerList SET customer_type='VVIP' WHERE customer_id='$id'";
+}
+
 ?>
 
 <!DOCTYPE html>
