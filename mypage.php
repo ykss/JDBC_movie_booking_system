@@ -57,10 +57,8 @@ include "comment.inc.php";
       <p>Type: <?php echo $List['customer_type']?></p>
       <hr>
     </div>
-    <?php  echo "<center><button class='button' name='editInfo'>
-      개인정보수정</button></center>
-    </form>";
-    ?>
+    <form action="mypageEdit.php"><center><button class='button' name='editInfo' style='width:70px;height:20px'>
+      Edit Info</button></center></form>
     <center><h3 style="background-color:rgba(255,255,255,0.7);width:300px">Reservation List</h3></center>
     <?php
       $rlt = mysqli_query($conn,"SELECT reserve_id, reserve_date, title, date FROM ReservationList JOIN MovieScheduleList
