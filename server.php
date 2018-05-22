@@ -101,7 +101,7 @@ function login(){
 				$_SESSION['customer_id']=$row['customer_id'];
 				$_SESSION['username']=$row['username'];
 
-				header("Location:movlist.php?login=success");
+				header("Location:index.php?login=success");
 				exit();
 			}
     }

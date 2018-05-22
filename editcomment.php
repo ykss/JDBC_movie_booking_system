@@ -9,27 +9,27 @@
 <head>
   <meta charset="utf-8">
   <title>Comments</title>
-  <link rel="stylesheet" type="text/css" href="comment.css">
+  <link rel="stylesheet" type="text/css" href="com.css">
 </head>
 <body>
 
   <?php
-  $comment_id=$_POST['customer_id'];
-  $uid=$_POST['comment_id'];
-  $date=$_POST['date'];
+  $comment_id=$_POST['comment_id'];
+  $customer_id=$_POST['customer_id'];
   $message=$_POST['message'];
+  $current_login=$_SESSION['customer_id'];
 
+  if($current_login==$customer_id){
   echo "<form method='POST' action='".editComments($conn)."'>
-  <input type='hidden' name='customer_id' value='".$comment_id."'>
-  <input type='hidden' name='comment_id' value='".$uid."'>
-  <input type='hidden' name='date' value='".$date."'>
-  <textarea name='message' row='8' column='80'>".$message."</textarea><br/>
-  <button type='submit' name='submit'>Comment</button>
-  </form>"
+  <input type='hidden' name='comment_id' value='".$comment_id."'>
+  <input type='hidden' name='date' value='".date('Y-m-d H:i:s')."'>
+  <textarea name='message' style='width:300px; height:200px;'>".$message."</textarea><br/>
+  <button type='submit' style='width:300px;height:30px;' name='editcomment'>Comment</button>
+  </form>";
+}else{
+  header("Location: comment.php?UserAccessFailed");
+}
   ?>
-
-
-
 
 
 </body>
