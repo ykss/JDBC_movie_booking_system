@@ -1,27 +1,65 @@
 <?php
 include 'dbh.inc.php';
+session.start();
 
+//$a = mb_strlen($schedule, 'utf-8')-2;
 $schedule =  $_POST['schedule'];
-//$date =  $_POST['date'];
-//$screen_room_id =  $_POST['screen_room_id'];
+$numOfPeople = $_POST['numOfPeople'];
+$setSeat =  $_POST['setSeat'];
+
+//자를 시작점, 자를 끝점 (음수면 뒤에서부터 count)
+$schedule_id = substr($schedule, 0, 3);
+if(substr($schedule_id, 0, 1) == 0 && substr($schedule_id, 1, 1)==0){ //0의자리가 0, 10의 자리도 0
+    $schedule_id = substr($schedule_id, 2, 1); //1의자리만 남기기
+}
+else if(substr($schedule_id, 0, 1) == 0 && substr($schedule_id, 1, 1) !=0) { //10의자리가 1~9, 100의 자리 0
+    $schedule_id = substr($schedule_id, 1, 2);
+}
+$title = mb_substr($schedule, 4, -22, 'utf-8');
+$screenRoom = mb_substr($schedule, -1, 1, 'utf-8');
+$date = mb_substr($schedule, -21, -2, 'utf-8');
 
 echo "schedule: ".$schedule."<br>\n";
-echo $_POST['numOfPeople']."<br>\n";
+echo "schedule_id: ".$schedule_id."<br>\n";
+echo "title: ".$title."<br>\n";
+echo "date: ".$date."<br>\n";
+echo "screenRoom: ".$screenRoom."<br>\n";
+echo "numOfPeople: ".$numOfPeople."<br>\n";
+echo "setSeat: ".$setSeat."<br>\n";
 
-//$screenRoom = mb_substr($stringSchedule, -1, 0, 'utf-8');//끝점 
-//$date = mb_substr($stringSchedule, 10, -8, 'utf-8');
-//echo "screenRoom: ".$screenRoom."<br>\n";
-//echo "date: ".$date."<br>\n";
 
-//mb_substr("안녕하세요.", 0, 2, 'utf-8');
-//곤지암 2018-05-17 12:00:00 2
+$user_id = $_SESSION['customer_id'];
+
+$customer_type = mysqli_fetch_array(
+    $conn->query("SELECT customer_type FROM customerlist WHERE customer_id='$user_id")
+);
+echo "customer_type".$customer_type."<br>/n";
+
 /*
-두번째 인수가 음수면 문자열 자르기의 시작점을 문자열의 끝부터 찾습니다.
+if($customer_type == "VVIP") {
+    $price = ;
+}
+else if($customer_type == "VIP") {
 
-세번째 인수가 음수면, 두번째 인수와 관계없이, (전체문자열길이 - 세번째인수)-1 가 자르기의 끝점.
+}
+else {
+
+}
 */
 
+
+$rlt = $conn->query(
+"INSERT INTO reservationlist (customer_id, reserve_date, schedule_id, price)
+VALUES ($user_id, $date, $schedule_id )"
+);
+while($schedule = mysqli_fetch_array($rlt)){
+$title = $schedule['title'];
+$date = $schedule['date'];
+$screen_room_id = $schedule['screen_room_id'];
+$option = $schedule['title'].'/ '.$schedule['date'].'/ '.$schedule['screen_room_id']."관";
+*/
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +69,5 @@ echo $_POST['numOfPeople']."<br>\n";
 
 <body>
     <br>
-<img src="seatInfo.JPG" width ="600" height="480"></td>
 </body>
 </html>
