@@ -40,7 +40,7 @@ function getComments($conn){
       echo "<div class='titleBox'><label>".$row['username']."</label></div>";
       echo "<div class='titleBox'><label>".$row['datetime']."</label></div>";
       echo "<form class='delete' method='POST' action='".deleteComments($conn)."'>
-        <input type='hidden' name='movie_id' value'".$row['movie_id']."'>
+        <input type='hidden' name='movie_id' value='".$row['movie_id']."'>
         <input type='hidden' name='customer_id' value='".$row['customer_id']."'>
         <input type='hidden' name='comment_id' value='".$row['comment_id']."'>
         <button type='submit' class='btn' name='delete'>Delete</button>
