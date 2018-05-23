@@ -15,7 +15,7 @@ include "server.php"
     }?>
     <style>
       body {
-        background-color: lightgray;
+        background-color: white;
       }
       #pic{
         column-width:200px;
