@@ -32,7 +32,7 @@ function getComments($conn){
   }else{
     $sql="SELECT * FROM customerlist NATURAL JOIN (SELECT * FROM commentlist)cm WHERE cm.movie_id='$movie_id'";
   }
-
+  
   $result=mysqli_query($conn,$sql);
   while($row=mysqli_fetch_assoc($result)){
       echo "<div class='comm_box'>";

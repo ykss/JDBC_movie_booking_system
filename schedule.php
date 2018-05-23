@@ -9,15 +9,12 @@ include_once "dbh.inc.php";
   <link rel="stylesheet" type="text/css" href="com.css">
 <body>
 현재상영중인 영화정보 가져오기
-
-
-
 <form method="post" action="reserve.php">
 <select name='schedule'>
   <option value='' selected>-- 영화선택 --</option>
   <?php
   $rlt = $conn->query(
-"SELECT movieinfolist.title, movieschedulelist.schedule_id, movieschedulelist.screen_room_id, movieschedulelist.date 
+"SELECT movieinfolist.title, movieschedulelist.schedule_id, movieschedulelist.screen_room_id, movieschedulelist.date
 FROM movieinfolist JOIN movieschedulelist USING (movie_id)"
 );
 while($schedule = mysqli_fetch_array($rlt)){
