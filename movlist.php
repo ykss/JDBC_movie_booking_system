@@ -114,7 +114,7 @@ include "comment.inc.php";
   </div> <!-- /row -->
   <form class="rankstd" action="movList.php" method="post">
     <div class="rank">
-      <p class="rate" style="text-align:center;">영화 순위</p>
+      <p class="rate" style="text-align:center;">전체 영화목록</p>
       <?php
         $selected = isset($_POST['std'])? $_POST['std']:'';
       ?>

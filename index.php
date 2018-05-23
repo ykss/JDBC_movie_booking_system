@@ -130,6 +130,7 @@ include "server.php"
         ?>
         <select class="std" name="std">
           <option <?php if($selected == 'starpoint'){echo("selected");}?> value = "starpoint">평점순</option>
+          <option <?php if($selected == 'reserved_rate'){echo("selected");}?> value = "reserved_rate">예매율순</option>
           <option <?php if($selected == 'release_date'){echo("selected");}?> value = "release_date">개봉일순</option>
           <option <?php if($selected == 'title'){echo("selected");}?> value = "title">제목순</option>
         </select>
@@ -138,6 +139,9 @@ include "server.php"
         $selectedOption = isset($_POST['std']) ? $_POST['std'] : 'starpoint';
         switch ($selectedOption) {
           case 'starpoint':
+              $order = isset($selectedOption) ? "DESC": '';
+              break;
+          case 'reserved_rate':
               $order = isset($selectedOption) ? "DESC": '';
               break;
           case 'release_date':
@@ -157,7 +161,11 @@ include "server.php"
     <br>
 
     <?php
-    if($result = $selectedOption!='starpoint' ? mysqli_query($conn,"SELECT * FROM MovieInfoList ORDER BY $selectedOption $order LIMIT 6"):mysqli_query($conn,"SELECT * FROM MovieInfoList NATURAL JOIN (SELECT movie_id,AVG(starpoint) AS avg FROM commentlist GROUP BY movie_id)cm WHERE cm.movie_id=movie_id ORDER BY avg DESC LIMIT 6")){
+    if($result = $selectedOption!='starpoint' ? 
+      $selectedOption != 'reserved_rate' ? 
+      mysqli_query($conn,"SELECT * FROM MovieInfoList ORDER BY $selectedOption $order LIMIT 6"): 
+      mysqli_query($conn,"SELECT * FROM MovieInfoList NATURAL JOIN (SELECT movie_id,reserved_rate FROM reservedrate)rr WHERE rr.movie_id=movie_id ORDER BY reserved_rate DESC LIMIT 6") : 
+      mysqli_query($conn,"SELECT * FROM MovieInfoList NATURAL JOIN (SELECT movie_id,AVG(starpoint) AS avg FROM commentlist GROUP BY movie_id)cm WHERE cm.movie_id=movie_id ORDER BY avg DESC LIMIT 6")){
       $i = 1;
       while($List = mysqli_fetch_array($result)){
         ?>
