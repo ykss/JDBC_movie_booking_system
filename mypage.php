@@ -42,6 +42,9 @@ include "comment.inc.php";
   }
   ?>
   <h1>My Page</h1>
+  <br>
+    <a href="index.php"><input type="button" value="메인페이지로" style="float: right;"></a>
+    <br>
   <?php
   $currentId = $_SESSION['customer_id'];
 
