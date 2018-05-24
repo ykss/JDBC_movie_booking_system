@@ -159,9 +159,9 @@ include "server.php"
 
     <?php
     if($result = $selectedOption!='starpoint' ? 
-      $selectedOption != 'reserved_rate' ? 
-      mysqli_query($conn,"SELECT * FROM MovieInfoList ORDER BY $selectedOption $order LIMIT 6"): 
-      mysqli_query($conn,"SELECT * FROM MovieInfoList NATURAL JOIN (SELECT movie_id,reserved_rate FROM reservedrate)rr WHERE rr.movie_id=movie_id ORDER BY reserved_rate DESC LIMIT 6") : 
+                 $selectedOption!='reserved_rate'?
+      mysqli_query($conn,"SELECT * FROM MovieInfoList ORDER BY $selectedOption $order LIMIT 6"):          
+      mysqli_query($conn,"SELECT * FROM MovieInfoList NATURAL JOIN (SELECT movie_id,reserved_rate FROM reservedrate)rr WHERE rr.movie_id=movie_id ORDER BY $selectedOption $order LIMIT 6") : 
       mysqli_query($conn,"SELECT * FROM MovieInfoList NATURAL JOIN (SELECT movie_id,AVG(starpoint) AS avg FROM commentlist GROUP BY movie_id)cm WHERE cm.movie_id=movie_id ORDER BY avg DESC LIMIT 6")){
       $i = 1;
       while($List = mysqli_fetch_array($result)){
@@ -176,6 +176,11 @@ include "server.php"
             <figcaption><?php echo '개봉일자 : '.$List['release_date']?></figcaption>
             <figcaption><?php echo '제한연령 : '.$List['is_rated'].'세 이상'?></figcaption>
             <figcaption><?php echo '제작사 : '.$List['studio']?></figcaption>
+            <?php $movie_id=$List['movie_id'];
+            $sqll="SELECT reserved_rate FROM MovieInfoList NATURAL JOIN (SELECT movie_id,reserved_rate FROM reservedrate)rr WHERE rr.movie_id=$movie_id";
+            $resultt = mysqli_query($conn,$sqll);
+            $value = mysqli_fetch_assoc($resultt); ?>
+            <figcaption><?php echo '예매율 : '.$value['reserved_rate'].'%' ?></figcaption>
             <?php $movie_id=$List['movie_id'];
             $sqll="SELECT AVG(starpoint) AS avg FROM commentlist WHERE movie_id='$movie_id'";
             $resultt=mysqli_query($conn,$sqll);

@@ -9,6 +9,8 @@ include_once "dbh.inc.php";
   <link rel="stylesheet" type="text/css" href="com.css">
 <body>
 현재상영중인 영화정보 가져오기
+<a href="index.php"><input type="button" value="메인페이지로" style="float: right;"></a>
+
 <?php
 echo"
 <form method='post' action='".getSeats($conn)."'>

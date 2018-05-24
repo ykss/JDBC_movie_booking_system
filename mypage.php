@@ -21,13 +21,12 @@ include "comment.inc.php";
     text-align: center;
   }
   table {
-    width: 800px;
+    width: 1000px;
     border: 2px solid black;
     background-color: rgba(255,255,255,0.7);
   }
   th, td {
     width:200px;
-
     text-align: center;
   }
 </style>
@@ -42,6 +41,9 @@ include "comment.inc.php";
   }
   ?>
   <h1>My Page</h1>
+  <br>
+    <a href="index.php"><input type="button" value="메인페이지로" style="float: right;"></a>
+    <br>
   <?php
   $currentId = $_SESSION['customer_id'];
 
@@ -61,7 +63,7 @@ include "comment.inc.php";
       Edit Info</button></center></form>
     <center><h3 style="background-color:rgba(255,255,255,0.7);width:300px">Reservation List</h3></center>
     <?php
-      $rlt = mysqli_query($conn,"SELECT reserve_id, reserve_date, title, date FROM ReservationList JOIN MovieScheduleList
+      $rlt = mysqli_query($conn,"SELECT * FROM ReservationList JOIN MovieScheduleList
                               ON ReservationList.customer_id=$currentId AND ReservationList.schedule_id = MovieScheduleList.schedule_id
                               JOIN MovieInfoList ON MovieScheduleList.movie_id = MovieInfoList.movie_id");
     ?>
@@ -72,15 +74,19 @@ include "comment.inc.php";
           <th>Date</th>
           <th># of People</th>
           <th>Reservation Date</th>
+          <th>Seats</th>
+          <th>Price</th>
         </tr>
       </table></center>
       <center><table>
       <?php while($List = mysqli_fetch_array($rlt)){
         $id = $List['reserve_id'];
-        $rlt2 = mysqli_query($conn, "SELECT ticket_id FROM TicketList WHERE TicketList.reserve_id='$id'");
+        $rlt2 = mysqli_query($conn, "SELECT ticket_id, seat_id FROM TicketList WHERE TicketList.reserve_id='$id'");
         $number = 0;
+        $seat = "";
         while($ticket = mysqli_fetch_array($rlt2)){
           $number++;
+          $seat .= $ticket['seat_id']." ";
         }
         ?>
         <tr>
@@ -88,6 +94,8 @@ include "comment.inc.php";
           <td><?php echo $List['date'];?></td>
           <td><?php echo $number; ?></td>
           <td><?php echo $List['reserve_date'];?></td>
+          <td><?php echo $List['screen_room_id']."관 ".$seat; ?></td>
+          <td><?php echo $List['price']; ?></td>
         </tr>
   <?php } ?>
 </table>

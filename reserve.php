@@ -105,17 +105,17 @@ for($i=0; $i<$numOfPeople; $i++){
          }
 }
 
-$triggerSql = 
-"CREATE TRIGGER When_Insert_reservationlist AFTER INSERT ON reservationlist 
+$triggerSql =
+"CREATE TRIGGER When_Insert_reservationlist AFTER INSERT ON reservationlist
 FOR EACH ROW
-BEGIN 
+BEGIN
 INSERT INTO ticketlist (seat_id, reserve_id, schedule_id) VALUES ('$seat_id', NOW(), '$schedule_id');
 END";
 
 /*
-$triggerSql = "CREATE TRIGGER Insert_ticketlist AFTER INSERT ON ticketlist 
+$triggerSql = "CREATE TRIGGER Insert_ticketlist AFTER INSERT ON ticketlist
 FOR EACH ROW
-BEGIN 
+BEGIN
 INSERT INTO reservationlist (customer_id, reserve_date, schedule_id, price) VALUES ('$customer_id', '$date', '$schedule_id','$price');
 END";
 */
@@ -126,7 +126,7 @@ if ($conn->query($triggerSql) === TRUE) {
 }
 
 /*
-$rlt = mysqli_fetch_array(mysqli_query($conn, 
+$rlt = mysqli_fetch_array(mysqli_query($conn,
 "SELECT reserve_id FROM reservationlist WHERE customer_id= '$customer_id' AND reserve_date ='$date' AND schedule_id='$schedule_id' AND price = '$price'"));
 $reserve_id = $rlt['reserve_id'];
 echo "reserve_id: ".$reserve_id."<br>\n";
