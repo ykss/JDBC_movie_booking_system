@@ -114,12 +114,13 @@ include "comment.inc.php";
   </div> <!-- /row -->
   <form class="rankstd" action="movList.php" method="post">
     <div class="rank">
-      <p class="rate" style="text-align:center;">영화 순위</p>
+      <p class="rate" style="text-align:center;">전체 영화목록</p>
       <?php
         $selected = isset($_POST['std'])? $_POST['std']:'';
       ?>
       <select class="std" name="std">
         <option <?php if($selected == 'starpoint'){echo("selected");}?> value = "starpoint">평점순</option>
+        <option <?php if($selected == 'reserved_rate'){echo("selected");}?> value = "reserved_rate">예매율순</option>
         <option <?php if($selected == 'release_date'){echo("selected");}?> value = "release_date">개봉일순</option>
         <option <?php if($selected == 'title'){echo("selected");}?> value = "title">제목순</option>
       </select>
@@ -128,6 +129,9 @@ include "comment.inc.php";
       $selectedOption = isset($_POST['std']) ? $_POST['std'] : 'starpoint';
       switch ($selectedOption) {
         case 'starpoint':
+            $order = isset($selectedOption) ? "DESC": '';
+            break;
+        case 'reserved_rate':
             $order = isset($selectedOption) ? "DESC": '';
             break;
         case 'release_date':
@@ -149,7 +153,11 @@ include "comment.inc.php";
 
 
   <?php
-  if($result = $selectedOption!='starpoint' ? mysqli_query($conn,"SELECT * FROM MovieInfoList ORDER BY $selectedOption $order"):mysqli_query($conn,"SELECT * FROM MovieInfoList NATURAL JOIN (SELECT movie_id,AVG(starpoint) AS avg FROM commentlist GROUP BY movie_id)cm WHERE cm.movie_id=movie_id ORDER BY avg DESC")){
+  if($result = $selectedOption!='starpoint' ? 
+  $selectedOption!='reserved_rate'?
+  mysqli_query($conn,"SELECT * FROM MovieInfoList ORDER BY $selectedOption $order"):          
+  mysqli_query($conn,"SELECT * FROM MovieInfoList NATURAL JOIN (SELECT movie_id,reserved_rate FROM reservedrate)rr WHERE rr.movie_id=movie_id ORDER BY $selectedOption $order") : 
+  mysqli_query($conn,"SELECT * FROM MovieInfoList NATURAL JOIN (SELECT movie_id,AVG(starpoint) AS avg FROM commentlist GROUP BY movie_id)cm WHERE cm.movie_id=movie_id ORDER BY avg DESC")){
   while($List = mysqli_fetch_array($result)){
     ?>
   <div id="pic">
@@ -161,6 +169,11 @@ include "comment.inc.php";
       <figcaption><?php echo '개봉일자 : '.$List['release_date']?></figcaption>
       <figcaption><?php echo '연령제한 : '.$List['is_rated'].'세 이상'?></figcaption>
       <figcaption><?php echo '제작사 : '.$List['studio']?></figcaption>
+      <?php $movie_id=$List['movie_id'];
+      $sqll="SELECT reserved_rate FROM MovieInfoList NATURAL JOIN (SELECT movie_id,reserved_rate FROM reservedrate)rr WHERE rr.movie_id=$movie_id";
+      $resultt = mysqli_query($conn,$sqll);
+      $value = mysqli_fetch_assoc($resultt); ?>
+      <figcaption><?php echo '예매율 : '.$value['reserved_rate'].'%' ?></figcaption>
       <?php $movie_id=$List['movie_id'];
       $sqll="SELECT AVG(starpoint) AS avg FROM commentlist WHERE movie_id='$movie_id'";
       $resultt=mysqli_query($conn,$sqll);
