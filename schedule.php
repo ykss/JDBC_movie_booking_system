@@ -81,7 +81,7 @@ if(isset($_POST['getSeat'])){
   echo "<input type='hidden' name='schedule' value='".$_POST['schedule']."'>";
 
   echo "<img src='seatInfo.JPG' width ='600' height='480'>
-  <button type='submit' class='btn' name='reserve'>예매하기</button>
+  <button type='submit' class='button' name='reserve'>예매하기</button>
   </form>";
   exit();
 }
