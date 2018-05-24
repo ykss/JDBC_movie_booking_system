@@ -28,7 +28,7 @@ function getComments($conn){
   if(isset($_POST['orderRecent'])){
     $sql="SELECT * FROM customerlist NATURAL JOIN (SELECT * FROM commentlist)cm WHERE cm.movie_id='$movie_id' ORDER BY datetime DESC";
   }elseif(isset($_POST['orderLike'])){
-    $sql="SELECT * FROM customerlist NATURAL JOIN(SELECT * FROM commentlist NATURAL JOIN (SELECT * FROM countlikenum)likenum WHERE likenum.comment_id=commentlist.comment_id)cm WHERE cm.movie_id='$movie_id'ORDER BY counter DESC;";
+    $sql="SELECT * FROM customerlist NATURAL JOIN(SELECT * FROM commentlist NATURAL JOIN (SELECT * FROM countlikenum)likenum WHERE likenum.comment_id=commentlist.comment_id)cm WHERE cm.movie_id='$movie_id'ORDER BY counter DESC";
   }else{
     $sql="SELECT * FROM customerlist NATURAL JOIN (SELECT * FROM commentlist)cm WHERE cm.movie_id='$movie_id'";
   }
