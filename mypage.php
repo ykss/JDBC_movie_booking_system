@@ -21,13 +21,12 @@ include "comment.inc.php";
     text-align: center;
   }
   table {
-    width: 800px;
+    width: 1000px;
     border: 2px solid black;
     background-color: rgba(255,255,255,0.7);
   }
   th, td {
     width:200px;
-
     text-align: center;
   }
 </style>
