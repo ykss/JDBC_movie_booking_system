@@ -6,7 +6,7 @@ session_start();
 $errorsfound = array();
 
 $view=mysqli_query($conn,"CREATE VIEW customer AS SELECT customerlist.username, customerlist.customer_id, likelist.comment_id FROM customerlist JOIN likelist ON customerlist.customer_id=likelist.customer_id");
-$viewtwo=mysqli_query($conn,"CREATE VIEW cuscomlike AS SELECT customer.username, customer.comment_id, customer.customer_id, commentlist.movie_id, commentlist.starpoint, commentlist.date, commentlist.message FROM customer JOIN commentlist ON customer.comment_id=commentlist.comment_id");
+$viewtwo=mysqli_query($conn,"CREATE VIEW cuscomlike AS SELECT customer.username, customer.comment_id, customer.customer_id, commentlist.movie_id, commentlist.starpoint, commentlist.datetime, commentlist.message FROM customer JOIN commentlist ON customer.comment_id=commentlist.comment_id");
 $viewthree=mysqli_query($conn,"CREATE VIEW countlikenum AS SELECT COUNT(customer_id) AS counter, comment_id FROM cuscomlike GROUP BY comment_id ORDER BY counter DESC");
 
 $totalseat = mysqli_query($conn, "CREATE VIEW totalseat AS SELECT movie_id,COUNT(movie_id) AS NumOfSchedule, 40*COUNT(movie_id) AS totalseat FROM `movieschedulelist` GROUP BY movie_id");
