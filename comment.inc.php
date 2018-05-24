@@ -71,12 +71,12 @@ function getComments($conn){
 function editComments($conn){
   if(isset($_POST['editcomment'])){
     $comment_id=$_POST['comment_id'];
-    $date=$_POST['datetime'];
+    $datetime=$_POST['date'];
     $message=$_POST['message'];
 
-    $sql="UPDATE commentlist SET message='$message', datetime='$date' WHERE comment_id='$comment_id'";
+    $sql="UPDATE commentlist SET message='$message', datetime='$datetime' WHERE comment_id='$comment_id'";
     $result=mysqli_query($conn,$sql);
-    header("Location: movlist.php?Success");
+    header("Location: comment.php?Success");
   }
 }
 
@@ -86,6 +86,7 @@ function deleteComments($conn){
     $cid=$_POST['customer_id'];
 
     if($cid==$_SESSION['customer_id']){
+      $resultone=mysqli_query($conn,"DELETE FROM likelist WHERE comment_id='$comment_id'");
       $sqltwo="DELETE FROM commentlist WHERE comment_id='$comment_id'";
       $result=mysqli_query($conn,$sqltwo);
       movieDisplay($conn);
@@ -143,8 +144,8 @@ function movieDisplay($conn){
     echo "<div class='summary'><p><span style='font-weight:bold;'>줄거리</span><br><br> : ".$List['content']."</p></div>";
 
   }
-
 }
+
 function like($conn){
   if(isset($_POST['liked'])){
   $comment_id=$_POST['comment_id'];
