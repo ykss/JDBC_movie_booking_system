@@ -74,6 +74,10 @@ table{
   margin-right: auto;
   background-color: rgb(255,250,250);
 }
-.summary p{
+.button {
+  padding: 8px 22px;
+  background-color: #e7e7e7; 
+  color: black;
+  font-size: 20px;
+} /* Gray */ 
 
-}
