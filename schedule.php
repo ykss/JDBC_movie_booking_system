@@ -8,10 +8,7 @@ include_once "dbh.inc.php";
   <title>Reservation</title>
   <link rel="stylesheet" type="text/css" href="com.css">
 <body>
-현재상영중인 영화정보 가져오기
   <a href="index.php"><input type="button" value="메인페이지로" style="float: right;"></a>
-
-
 
 <form method="post" action="reserve.php">
 <select name='schedule'>
@@ -45,7 +42,7 @@ while($schedule = mysqli_fetch_array($rlt)){
 
 </script>
 <img src="seatInfo.JPG" width ="600" height="480"></td>
-<button type="submit" class="btn" name="reserve">예매하기</button>
+<button class="button" type="submit"  name="reserve">예매하기</button>
 
 </form>
 </body>
