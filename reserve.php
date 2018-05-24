@@ -83,11 +83,11 @@ if ($conn->query($sql) === TRUE){
    WHERE customer_id='$customer_id' AND reserve_date='$date' AND schedule_id='$schedule_id' AND price='$price'"));
    $reserve_id = $result['reserve_id'];
    //echo "reserve_id: ".$reserve_id."<br>\n";
-   
+
        for($i=0; $i<$numOfPeople; $i++){
     $seat_id = substr($setSeat, $i*4, 3);
     $sql="INSERT INTO seatlist (seat_id, schedule_id) VALUES ('$seat_id','$schedule_id')";
-   
+
         if ($conn->query($sql) === TRUE){
            // echo "Insert successfully.$sql.<br>\n";
          } else {
@@ -114,10 +114,10 @@ $rlt = $conn->query("SELECT reserve_id FROM ReservationList WHERE customer_id='$
 //echo "number: ".$number."<br>\n";
 
 if($number >= 10){
-  $query = "UPDATE CustomerList SET customer_type='VIP' WHERE customer_id='$customer_id'";
+  $query = "UPDATE CustomerList SET customer_type='VVIP' WHERE customer_id='$customer_id'";
 }
 else if($number >= 5){
-  $query = "UPDATE CustomerList SET customer_type='VVIP' WHERE customer_id='$customer_id'";
+  $query = "UPDATE CustomerList SET customer_type='VIP' WHERE customer_id='$customer_id'";
 }
 
 if ($conn->query($query) === TRUE){
@@ -125,8 +125,8 @@ if ($conn->query($query) === TRUE){
  } else {
    //  echo "Update Error: " . $query . "<br>" . $conn->error."<br>\n";
  }
- 
+
 ?>
-<button class="button" disabled>예매가 완료되었습니다:)</button>
+<meta http-equiv='Refresh' content='0.3, URL=mypage.php'>
 </body>
 </html>
