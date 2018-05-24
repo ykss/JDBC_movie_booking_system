@@ -81,12 +81,13 @@ $sql = "INSERT INTO reservationlist (customer_id, reserve_date, schedule_id, pri
 
 if ($conn->query($sql) === TRUE){
    //echo "Insert successfully.$sql.<br>\n";
+   $sql = "COMMIT;";
+   $result = mysqli_query($conn, $sql);
    $result = mysqli_fetch_array($conn->query("SELECT reserve_id FROM ReservationList
    WHERE customer_id='$customer_id' AND reserve_date='$date' AND schedule_id='$schedule_id' AND price='$price'"));
    $reserve_id = $result['reserve_id'];
    //echo "reserve_id: ".$reserve_id."<br>\n";
-   $sql = "COMMIT;";
-   $result = mysqli_query($conn, $sql);
+
        for($i=0; $i<$numOfPeople; $i++){
     $seat_id = substr($setSeat, $i*4, 3);
     $sql="INSERT INTO seatlist (seat_id, schedule_id) VALUES ('$seat_id','$schedule_id')";
