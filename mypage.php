@@ -65,7 +65,8 @@ include "comment.inc.php";
     <?php
       $rlt = mysqli_query($conn,"SELECT * FROM ReservationList JOIN MovieScheduleList
                               ON ReservationList.customer_id=$currentId AND ReservationList.schedule_id = MovieScheduleList.schedule_id
-                              JOIN MovieInfoList ON MovieScheduleList.movie_id = MovieInfoList.movie_id");
+                              JOIN MovieInfoList ON MovieScheduleList.movie_id = MovieInfoList.movie_id
+                              JOIN ScreenRoomList ON MovieScheduleList.screen_room_id = ScreenRoomList.screen_room_id");
     ?>
 
       <center><table>
@@ -76,6 +77,7 @@ include "comment.inc.php";
           <th>Reservation Date</th>
           <th>Seats</th>
           <th>Price</th>
+          <th>Type</th>
         </tr>
       </table></center>
       <center><table>
@@ -96,6 +98,7 @@ include "comment.inc.php";
           <td><?php echo $List['reserve_date'];?></td>
           <td><?php echo $List['screen_room_id']."관 ".$seat; ?></td>
           <td><?php echo $List['price']; ?></td>
+          <td><?php echo $List['screen_room_type']; ?></td>
         </tr>
   <?php } ?>
 </table>
