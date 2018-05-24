@@ -14,9 +14,6 @@ include "server.php"
       echo "Nobody is logged in";
     }?>
     <style>
-      body {
-        background-color: white;
-      }
       #pic{
         column-width:200px;
         display: inline-block;

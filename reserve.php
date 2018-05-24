@@ -111,7 +111,7 @@ $rlt = $conn->query("SELECT reserve_id FROM ReservationList WHERE customer_id='$
  while($result = mysqli_fetch_array($rlt)){
  $number++;
  }
-echo "number: ".$number."<br>\n";
+//echo "number: ".$number."<br>\n";
 
 if($number >= 10){
   $query = "UPDATE CustomerList SET customer_type='VIP' WHERE customer_id='$customer_id'";
@@ -121,9 +121,9 @@ else if($number >= 5){
 }
 
 if ($conn->query($query) === TRUE){
-    echo "Update successfully.$query.<br>\n";
+  //  echo "Update successfully.$query.<br>\n";
  } else {
-     echo "Update Error: " . $query . "<br>" . $conn->error."<br>\n";
+   //  echo "Update Error: " . $query . "<br>" . $conn->error."<br>\n";
  }
  
 ?>
