@@ -74,6 +74,8 @@ for($i=0; $i<$numOfPeople; $i++){
         }
     }
 }
+$sql = "START TRANSACTION;";
+$result = mysqli_query($conn, $sql);
 $sql = "INSERT INTO reservationlist (customer_id, reserve_date, schedule_id, price) VALUES ('$customer_id', '$date', '$schedule_id','$price')";
 //echo "sql:".$sql."<br>\n";
 
@@ -83,7 +85,8 @@ if ($conn->query($sql) === TRUE){
    WHERE customer_id='$customer_id' AND reserve_date='$date' AND schedule_id='$schedule_id' AND price='$price'"));
    $reserve_id = $result['reserve_id'];
    //echo "reserve_id: ".$reserve_id."<br>\n";
-
+   $sql = "COMMIT;";
+   $result = mysqli_query($conn, $sql);
        for($i=0; $i<$numOfPeople; $i++){
     $seat_id = substr($setSeat, $i*4, 3);
     $sql="INSERT INTO seatlist (seat_id, schedule_id) VALUES ('$seat_id','$schedule_id')";
