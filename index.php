@@ -14,6 +14,9 @@ include "server.php"
       echo "Nobody is logged in";
     }?>
     <style>
+      body {
+        background-color: white;
+      }
       #pic{
         column-width:200px;
         display: inline-block;
@@ -115,11 +118,10 @@ include "server.php"
                   ?>
                 </figure>
               </div>
-            <br>
       <?php } ?>
     <?php  } ?>
 
-    <form class="rankstd" action="index.php" method="post">
+    <form action="index.php" method="post">
       <div class="rank">
         <p class="rate" style="text-align:center;">영화 순위</p>
         <?php

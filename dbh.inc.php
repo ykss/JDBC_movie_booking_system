@@ -2,7 +2,7 @@
 
 $dbServername ="localhost";
 $dbUsername ="root";
-$dbPassword ="000000";
+$dbPassword ="";
 $dbName ="ressystem";
 
 // connect to the database
