@@ -43,15 +43,6 @@ while($schedule = mysqli_fetch_array($rlt)){
 
 ?>
 
-
-
-<<<<<<< HEAD
-</script>
-<img src="seatInfo.JPG" width ="600" height="480"></td>
-<button class="button" type="submit"  name="reserve">예매하기</button>
-=======
->>>>>>> 923d19c90dbf33dc8c577f03104455ed01d01c78
-
  <?php
 function getSeats($conn){
 if(isset($_POST['getSeat'])){
