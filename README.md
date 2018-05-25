@@ -39,6 +39,7 @@ reserve.php- enables reservation if all requirements are fulfilled
 
 dbname is set to ressystem
 
+<br><br>
 <h2>How to install DataBase</h2>
 
 1. Download ressystem.sql file
