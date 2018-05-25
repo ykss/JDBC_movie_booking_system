@@ -38,3 +38,13 @@ reserve.php- enables reservation if all requirements are fulfilled
 
 
 dbname is set to ressystem
+
+<h2>How to install DataBase</h2>
+
+1. Download ressystem.sql file
+2. Go to phpmyadmin
+3. Execute query "CREATE DATABASE ressytem;"
+4. Click "가져오기" or "Import"
+5. Select file "ressystem.sql"
+6. Press "실행" or "Go"
+7. Database is inserted!
