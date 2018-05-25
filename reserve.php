@@ -1,6 +1,6 @@
 <?php
 include_once "dbh.inc.php";
-// session_start();
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -78,11 +78,12 @@ $sql = "START TRANSACTION;";
 $result = mysqli_query($conn, $sql);
 $sql = "INSERT INTO reservationlist (customer_id, reserve_date, schedule_id, price) VALUES ('$customer_id', '$date', '$schedule_id','$price')";
 //echo "sql:".$sql."<br>\n";
+$sql2 = "COMMIT;";
+$result = mysqli_query($conn, $sql2);
 
 if ($conn->query($sql) === TRUE){
    //echo "Insert successfully.$sql.<br>\n";
-   $sql = "COMMIT;";
-   $result = mysqli_query($conn, $sql);
+
    $result = mysqli_fetch_array($conn->query("SELECT reserve_id FROM ReservationList
    WHERE customer_id='$customer_id' AND reserve_date='$date' AND schedule_id='$schedule_id' AND price='$price'"));
    $reserve_id = $result['reserve_id'];
