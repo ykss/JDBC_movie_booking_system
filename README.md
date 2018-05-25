@@ -44,7 +44,7 @@ dbname is set to ressystem
 
 1. Download ressystem.sql file
 2. Go to phpmyadmin
-3. Execute query "CREATE DATABASE ressytem;"
+3. Execute query "CREATE DATABASE ressystem;"
 4. Click "가져오기" or "Import"
 5. Select file "ressystem.sql"
 6. Press "실행" or "Go"
