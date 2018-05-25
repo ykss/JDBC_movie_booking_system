@@ -5,8 +5,8 @@ DB Manipulator : 김도진
 Application Developer : 심소정
 DB administrator : 차은비
 
-
-Login and Register
+<br><br>
+<strong>Login and Register</strong><br>
 
 login.php - checks username and password and allows a user to login to the system.<br>
 register.php - if a user does not have a username or password, he/she can register to the system.<br>
@@ -15,10 +15,10 @@ error.php - when sufficient information is not filled in register or login secti
 main.css - css file decorating all files related to login and register.<br>
 dbh.inc.php - contains information that enables access to local server. (password is set to "", in order to use files in local server the user must edit and insert his/her own local server password)<br><br><br>
 
-Main Page
+<strong>Main Page</strong><br>
 index.php - shows movies that exist in a database. The user can search movies by keywords<br><br><br>
 
-My Page
+<strong>My Page</strong>
 mypage.php - 
 mypageEdit.php - 
 updateInfo.php - 
