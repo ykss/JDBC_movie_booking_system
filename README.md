@@ -1,23 +1,27 @@
 # JDBC_movie_booking_system
-```
-화이팅!
-```
+
 Project manager and DB designer : 유경상
 DB Manipulator : 김도진
 Application Developer : 심소정
 DB administrator : 차은비
 
 
-register.php 는 register을 가능하게 하는 화면입니다.<br>
-login.php는 login을 가능하게 하는 화면입니다.<br>
-server.php는 실질적으로 local server의 db와 연동하는 기능을 합니다.<br>
-error.php는 error상황이 발생했을 때 알려주는 화면을 출력합니다.<br>
-main.css는 화면을 꾸며주는 css 파일입니다.<br>
-comment.php 는 영화의 디테일을 보여주는 파일입니다.<br>
-comment.inc.php는 그와 관련된 php파일입니다. <br>
-com.css는 화면을 꾸며주는 css파일입니다. <br>
+Login and Register
 
-dbname은 ressystem으로 설정했습니다! 
+login.php - checks username and password and allows a user to login to the system.<br>
+register.php - if a user does not have a username or password, he/she can register to the system.<br>
+server.php - enables web to connect with database. <br>
+error.php - when sufficient information is not filled in register or login section error message appears<br>
+main.css - css file decorating all files related to login and register.<br>
+dbh.inc.php - contains information that enables access to local server. (password is set to "", in order to use files in local server the user must edit and insert his/her own local server password)<br><br><br>
+
+Main Page
+index.php - shows movies that exist in a database. The user can search movies by keywords<br><br><br>
+
+My Page
+mypage.php - 
+mypageEdit.php - 
+updateInfo.php - 
 
 
-오랜만이야~~
+dbname is set to ressystem
