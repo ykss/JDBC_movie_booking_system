@@ -1,6 +1,7 @@
 <?php
 include_once "dbh.inc.php";
 session_start();
+date_default_timezone_set('Asia/Seoul');
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +30,7 @@ else if((substr($schedule_id, 0, 1) == '0') && (substr($schedule_id, 1, 1) !='0'
 
 $title = mb_substr($schedule, 4, -22, 'utf-8');
 $screenRoom = mb_substr($schedule, -1, 1, 'utf-8');
-$date = mb_substr($schedule, -21, -2, 'utf-8');
+$date = date("Y-m-d H:i:s", time());
 /*
 echo "schedule: ".$schedule."<br>\n";
 echo "schedule_id: ".$schedule_id."<br>\n";
