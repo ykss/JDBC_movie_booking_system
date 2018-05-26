@@ -39,7 +39,7 @@ updateInfo.php - allows a user to edit ones' information
 schedule.php- shows all schedules that can be reserved and allows a user to select specific movie schedule and a seat
 reserve.php- enables reservation if all requirements are fulfilled
 
-*Database*
+<strong>Database</strong><br>
 JDBC-ressystem.sql - our mysql database file. 
 
 
