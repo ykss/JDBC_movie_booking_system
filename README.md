@@ -47,7 +47,7 @@ JDBC-ressystem.sql - our mysql database file.
 <br><br><br>
 <h2>How to install DataBase</h2>
 
-1. Download ressystem.sql file
+1. Download JDBC-ressystem.sql file
 2. Go to phpmyadmin
 3. Click "가져오기" or "Import"
 4. Select file "ressystem.sql"
