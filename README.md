@@ -1,8 +1,11 @@
 # JDBC_movie_booking_system
 
 Project manager and DB designer : 유경상
+
 DB Manipulator : 김도진
+
 Application Developer : 심소정
+
 DB administrator : 차은비
 
 <br><br>
@@ -36,8 +39,9 @@ updateInfo.php - allows a user to edit ones' information
 schedule.php- shows all schedules that can be reserved and allows a user to select specific movie schedule and a seat
 reserve.php- enables reservation if all requirements are fulfilled
 
+*Database*
+JDBC-ressystem.sql - our mysql database file. 
 
-dbname is set to ressystem
 
 <br><br>
 <h2>How to install DataBase</h2>
